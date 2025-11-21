@@ -67,6 +67,35 @@
             display: block;
         }
 
+        .splash-company {
+            font-size: 36px;
+            font-weight: 800;
+            margin-top: 12px;
+            color: var(--splash-logo-color);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            animation: splash-fade 1600ms ease both 200ms;
+        }
+
+        .splash-text {
+            font-size: 18px;
+            letter-spacing: 0.6px;
+            opacity: 0.95;
+            margin-top:8px;
+            animation: splash-slide 1600ms ease both 350ms;
+        }
+
+        @keyframes splash-fade {
+            0% { transform: translateY(12px) scale(0.96); opacity: 0; }
+            60% { transform: translateY(-6px) scale(1.02); opacity: 1; }
+            100% { transform: translateY(0) scale(1); opacity: 1; }
+        }
+
+        @keyframes splash-slide {
+            0% { transform: translateY(8px); opacity: 0 }
+            100% { transform: translateY(0); opacity: 1 }
+        }
+
         /* Navbar logo image */
         .logo-icon img {
             width: 100%;
@@ -267,32 +296,70 @@
             color: var(--primary-dark);
         }
 
-        /* Hero Section */
+        /* Hero Section (with image slider) */
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap');
+
         .hero {
-            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary-purple) 100%);
+            position: relative;
             color: var(--white);
             padding: 100px 20px;
             text-align: center;
-            min-height: 500px;
+            min-height: 520px;
             display: flex;
             align-items: center;
             justify-content: center;
+            overflow: hidden;
+            font-family: 'Poppins', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
         }
 
-        .hero-content {
-            max-width: 800px;
+        .hero-slider {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+        }
+
+        .slide {
+            position: absolute;
+            inset: 0;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+        }
+
+        .slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .slide.active {
+            opacity: 1;
+        }
+
+        .hero-overlay {
+            position: relative;
+            z-index: 2;
+            width: 100%;
+            max-width: 980px;
+            margin: 0 auto;
+            text-align: center;
+            padding: 40px 20px;
         }
 
         .hero h1 {
             font-size: 48px;
             margin-bottom: 20px;
-            font-weight: 700;
+            font-weight: 800;
+            text-shadow: 0 6px 20px rgba(0,0,0,0.5);
         }
 
         .hero p {
             font-size: 20px;
             margin-bottom: 30px;
             opacity: 0.95;
+            text-shadow: 0 4px 12px rgba(0,0,0,0.35);
         }
 
         .hero-buttons {
@@ -300,6 +367,23 @@
             gap: 20px;
             justify-content: center;
             flex-wrap: wrap;
+        }
+
+        /* Service cover images (centered & larger) */
+        .service-cover {
+            width: 100%;
+            max-width: 420px;
+            height: 260px;
+            object-fit: cover;
+            border-radius: 8px;
+            display: block;
+            margin: 0 auto 18px;
+        }
+        .service-card {
+            text-align: left;
+        }
+        .service-card .title {
+            text-align: center;
         }
 
         .btn-primary, .btn-secondary {
@@ -371,6 +455,20 @@
             line-height: 1.8;
             color: var(--text-light);
             margin-bottom: 15px;
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 14px;
+        }
+
+        .about-img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            border-radius: 8px;
+            display: block;
         }
 
         .features {
@@ -700,7 +798,8 @@
     <div id="splash" aria-hidden="true">
         <div class="splash-inner">
             <div class="splash-logo"><img src="logo.png" alt="ACCRUVISTA logo"></div>
-            <div class="splash-text">ACCRUVISTA PRO SOLUTIONS</div>
+            <div class="splash-company">ACCRUVISTA PRO SOLUTIONS</div>
+            <div class="splash-text">Trusted Research · Stock Tips · Insights</div>
         </div>
     </div>
 
@@ -735,72 +834,51 @@
             <button class="menu-toggle" id="menuToggle">☰</button>
 
             <ul class="nav-links" id="navLinks">
-                <li class="nav-item">
-                    <a href="#home">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a href="#about">About Us ▼</a>
-                    <ul class="dropdown">
-                        <li><a href="#company-info">Company Information</a></li>
-                        <li><a href="#team">Our Team</a></li>
-                        <li><a href="#mission">Mission & Vision</a></li>
-                    </ul>
-                </li>
+                <li class="nav-item"><a href="#home">Home</a></li>
+                <li class="nav-item"><a href="#about">About Us</a></li>
                 <li class="nav-item">
                     <a href="#services">Services ▼</a>
                     <ul class="dropdown">
-                        <li><a href="#stock-cash">Stock Cash</a></li>
-                        <li><a href="#stock-future">Stock Future</a></li>
-                        <li><a href="#stock-option">Stock Option</a></li>
-                        <li><a href="#index-future">Index Future</a></li>
-                        <li><a href="#index-option">Index Option</a></li>
-                        <li><a href="#btst">BTST - Options</a></li>
-                        <li><a href="#swing-trade">Swing Trade - Equity Cash</a></li>
-                        <li><a href="#delivery">Equity Delivery</a></li>
+                        <li><a href="stock-cash.html">Stock Cash</a></li>
+                        <li><a href="stock-future.html">Stock Future</a></li>
+                        <li><a href="stock-option.html">Stock Option</a></li>
+                        <li><a href="index-future.html">Index Future</a></li>
+                        <li><a href="index-option.html">Index Option</a></li>
+                        <li><a href="btst.html">BTST - Options</a></li>
+                        <li><a href="swing-trade.html">Swing Trade - Equity Cash</a></li>
+                        <li><a href="delivery.html">Equity Delivery</a></li>
                     </ul>
                 </li>
-                <li class="nav-item">
-                    <a href="#support">Support ▼</a>
-                    <ul class="dropdown">
-                        <li><a href="#live-support">Live Support Team</a></li>
-                        <li><a href="#research-team">Research Team</a></li>
-                        <li><a href="#daily-sheet">Daily Performance Sheet</a></li>
-                        <li><a href="#contact">Contact Us</a></li>
-                    </ul>
-                </li>
-                <li class="nav-item">
-                    <a href="#resources">Resources ▼</a>
-                    <ul class="dropdown">
-                        <li><a href="#complaint-board">Complaint Board</a></li>
-                        <li><a href="#investor-charter">Investor Charter</a></li>
-                        <li><a href="#disclaimer">Disclaimer</a></li>
-                        <li><a href="#privacy">Privacy Policy</a></li>
-                        <li><a href="#terms">Terms & Conditions</a></li>
-                    </ul>
-                </li>
-                <li class="nav-item">
-                    <a href="#blog">Blog</a>
-                </li>
-                <li class="nav-item">
-                    <a href="#contact" class="cta-button">Get A Quote</a>
-                </li>
+                <li class="nav-item"><a href="career.html">Career</a></li>
+                <li class="nav-item"><a href="complaint-board.html">Complaint Board</a></li>
+                <li class="nav-item"><a href="investor-charter.html">Investment Charter</a></li>
+                <li class="nav-item"><a href="#payment">Payment</a></li>
+                <li class="nav-item"><a href="disclaimer.html">Disclaimer</a></li>
+                <li class="nav-item"><a href="discolsure.html">Discolsure</a></li>
             </ul>
         </div>
     </nav>
 
     <!-- Hero Section -->
     <section class="hero" id="home">
-        <div class="hero-content">
-            <h1>Grow Through What You Go Through</h1>
-            <p>Expert Financial Research & Stock Tips from SEBI Registered Analysts</p>
-            <div class="hero-buttons">
-                <a href="#contact" class="btn-primary">Get Started</a>
-                <a href="#services" class="btn-secondary">Explore Services</a>
+        <div class="hero-slider" aria-hidden="true">
+            <div class="slide active"><img src="hero1.webp" alt="Hero image 1"></div>
+            <div class="slide"><img src="he2.jpg" alt="Hero image 2"></div>
+        </div>
+
+        <div class="hero-overlay">
+            <div class="hero-content">
+                <h1>Stock Tips with our experienced Research Team</h1>
+                <p>Cash and F&amp;O traded in NSE and commodities bullion.</p>
+                <div class="hero-buttons">
+                    <a href="#contact" class="btn-primary">Get Started</a>
+                    <a href="#services" class="btn-secondary">Explore Services</a>
+                </div>
             </div>
         </div>
     </section>
 
-        <!-- Payment Section -->
+        <!-- Payment Section (restored as requested) -->
         <section class="we-provide" id="payment" style="padding-top:40px; padding-bottom:40px;">
             <div class="section-container">
                 <div class="section-header">
@@ -827,7 +905,12 @@
         </div>
 
         <div class="about-content">
-            <p>We specialize in conducting in-depth market research and analysis for our clients to help them make more informed business decisions. Our firm is a SEBI-certified Research Analyst firm, adhering to all the guidelines to ensure that you always get authentic service.</p>
+            <div class="about-grid">
+                <img src="a1.avif" alt="About image 1" class="about-img">
+                <img src="a2.jpg" alt="About image 2" class="about-img">
+                <img src="a3.webp" alt="About image 3" class="about-img">
+            </div>
+            <p style="margin-top:18px;">We specialize in conducting in-depth market research and analysis for our clients to help them make more informed business decisions. Our team follows industry best practices to ensure you receive reliable, well-researched insights.</p>
             <p>Our top management comprises several distinguished individuals with a diversified portfolio of corporate and industrial experience alike. Armed with this wide array of knowledge and experience, only quality services will be rendered to you.</p>
         </div>
 
@@ -875,6 +958,42 @@
         </div>
     </section>
 
+    <!-- Recommendations Section (from reference site, adapted) -->
+    <section class="we-provide" id="recommendations">
+        <div class="section-container">
+            <div class="section-header">
+                <h2>The recommendations for Stocks</h2>
+                <div class="subtitle">Our approach and research focus</div>
+            </div>
+
+            <div class="benefits-grid">
+                <div class="benefit-card">
+                    <h3>The recommendations for Stocks</h3>
+                    <p>Cash and F&amp;O traded in NSE and commodities bullion. Our recommendations focus on high-probability setups and risk management.</p>
+                    <p style="margin-top:12px;"><a href="#contact" class="cta-button">Make an Appointment</a></p>
+                </div>
+                <div class="benefit-card">
+                    <h3>The recommendation on technical basis</h3>
+                    <p>By keeping eyes on fundamentals with appropriate risk &amp; reward ratio, we combine technical and fundamental signals to build actionable calls.</p>
+                    <p style="margin-top:12px;"><a href="#contact" class="cta-button">Make an Appointment</a></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quick CTA: Get A Free Quote -->
+    <section style="padding:40px 20px; background: linear-gradient(90deg,#7B68EE, #5A4BD6); color: #fff; text-align:center;">
+        <div style="max-width:1100px; margin:0 auto; display:flex; align-items:center; justify-content:space-between; gap:20px; flex-wrap:wrap;">
+            <div style="flex:1; min-width:260px; text-align:left;">
+                <h2 style="margin:0 0 6px 0;">Get A Free Quote</h2>
+                <p style="margin:0; opacity:0.95;">Enquire now for personalised research and tailored stock tips.</p>
+            </div>
+            <div style="text-align:right; min-width:200px;">
+                <a href="#contact" class="btn-primary" style="display:inline-block;">Enquire Now</a>
+            </div>
+        </div>
+    </section>
+
     <!-- Services Section -->
     <section class="services" id="services">
         <div class="section-container">
@@ -885,45 +1004,70 @@
 
             <div class="services-grid">
                 <div class="service-card">
-                    <div class="service-card-icon">📈</div>
-                    <h3>STOCK CASH</h3>
-                    <p>A product designed for traders who aim to grab high potential trades from the Cash market with optimal entry and exit points.</p>
+                    <img class="service-cover" src="s1.jpeg" alt="Stock cash cover">
+                    <div class="service-card-body">
+                        <h3 class="title"><a href="stock-cash.html">💰 STOCK CASH</a></h3>
+                        <p>A product for traders who aim to grab high-potential trades from the Cash market.</p>
+                        <p style="margin-top:12px;"><a href="stock-cash.html" class="cta-button">Read More</a></p>
+                    </div>
                 </div>
                 <div class="service-card">
-                    <div class="service-card-icon">📊</div>
-                    <h3>STOCK FUTURE</h3>
-                    <p>A Premium Service designed for traders who wants to trade in high volatility in the Future to capture momentum and maximize returns.</p>
+                    <img class="service-cover" src="s2.webp" alt="Stock future cover">
+                    <div class="service-card-body">
+                        <h3 class="title"><a href="stock-future.html">🔮 STOCK FUTURE</a></h3>
+                        <p>Premium service for traders who trade high-volatility stock futures to capture momentum.</p>
+                        <p style="margin-top:12px;"><a href="stock-future.html" class="cta-button">Read More</a></p>
+                    </div>
                 </div>
                 <div class="service-card">
-                    <div class="service-card-icon">💰</div>
-                    <h3>STOCK OPTION</h3>
-                    <p>A Premium Service designed for traders who wants to trade in high volatility in the Options to capture momentum with leveraged positions.</p>
+                    <img class="service-cover" src="s3.webp" alt="Stock option cover">
+                    <div class="service-card-body">
+                        <h3 class="title"><a href="stock-option.html">🎯 STOCK OPTION</a></h3>
+                        <p>Premium options recommendations designed to capture short-term momentum in stock options.</p>
+                        <p style="margin-top:12px;"><a href="stock-option.html" class="cta-button">Read More</a></p>
+                    </div>
                 </div>
                 <div class="service-card">
-                    <div class="service-card-icon">📉</div>
-                    <h3>INDEX FUTURE</h3>
-                    <p>A Premium Service designed for traders who wants to trade in high volatility in the Index Future to capture momentum in benchmark indices.</p>
+                    <img class="service-cover" src="s4.avif" alt="Index future cover">
+                    <div class="service-card-body">
+                        <h3 class="title"><a href="index-future.html">📊 INDEX FUTURE</a></h3>
+                        <p>Index future recommendations for traders looking to capture momentum in index derivatives.</p>
+                        <p style="margin-top:12px;"><a href="index-future.html" class="cta-button">Read More</a></p>
+                    </div>
                 </div>
                 <div class="service-card">
-                    <div class="service-card-icon">🎯</div>
-                    <h3>INDEX OPTION</h3>
-                    <p>A Premium Service designed for traders who wants to trade in the Index Options to capture momentum with flexible strike selection.</p>
+                    <img class="service-cover" src="s5.jpg" alt="Index option cover">
+                    <div class="service-card-body">
+                        <h3 class="title"><a href="index-option.html">📈 INDEX OPTION</a></h3>
+                        <p>Index options recommendations for traders aiming to exploit volatility in index derivatives.</p>
+                        <p style="margin-top:12px;"><a href="index-option.html" class="cta-button">Read More</a></p>
+                    </div>
                 </div>
                 <div class="service-card">
-                    <div class="service-card-icon">⚡</div>
-                    <h3>BTST - OPTIONS</h3>
-                    <p>A Premium Service designed for traders who want to trade in Stock Options & Index Options to capture short-term momentum effectively.</p>
+                    <img class="service-cover" src="s6.webp" alt="BTST options cover">
+                    <div class="service-card-body">
+                        <h3 class="title"><a href="btst.html">⚡ BTST / BTST – OPTIONS</a></h3>
+                        <p>Short-term BTST/STBT equity &amp; options recommendations for swing and intraday opportunities.</p>
+                        <p style="margin-top:12px;"><a href="btst.html" class="cta-button">Read More</a></p>
+                    </div>
                 </div>
                 <div class="service-card">
-                    <div class="service-card-icon">🚀</div>
-                    <h3>SWING TRADE - EQUITY CASH</h3>
-                    <p>A product designed for busy traders who wants to capture the movement in stocks for short term in the Cash & Future segment with limited risk.</p>
+                    <img class="service-cover" src="s7.jpg" alt="Swing trade cover">
+                    <div class="service-card-body">
+                        <h3 class="title"><a href="swing-trade.html">🔁 SWING TRADE – EQUITY CASH</a></h3>
+                        <p>Designed for busy traders to capture short-term moves in cash &amp; futures with limited risk.</p>
+                        <p style="margin-top:12px;"><a href="swing-trade.html" class="cta-button">Read More</a></p>
+                    </div>
                 </div>
                 <div class="service-card">
-                    <div class="service-card-icon">💎</div>
-                    <h3>EQUITY DELIVERY</h3>
-                    <p>A product designed for Mid-to-long term investors who are looking for a passive investment strategy. It follows the classic Value Investing Strategy.</p>
+                    <img class="service-cover" src="s9.avif" alt="Equity delivery cover">
+                    <div class="service-card-body">
+                        <h3 class="title"><a href="delivery.html">🏦 EQUITY DELIVERY</a></h3>
+                        <p>Value-investing portfolios for mid-to-long-term investors seeking passive growth.</p>
+                        <p style="margin-top:12px;"><a href="delivery.html" class="cta-button">Read More</a></p>
+                    </div>
                 </div>
+            </div>
             </div>
         </div>
     </section>
@@ -959,7 +1103,6 @@
             <div class="footer-section">
                 <h3>ACCRUVISTA PRO SOLUTIONS</h3>
                 <p>Your trusted partner in financial research and stock market guidance.</p>
-                <p style="margin-top: 15px; font-size: 13px;">SEBI Registered Research Analyst Firm</p>
             </div>
             <div class="footer-section">
                 <h3>Services</h3>
@@ -990,7 +1133,7 @@
         </div>
 
         <div class="footer-divider">
-            <p>&copy; 2025 ACCRUVISTA PRO SOLUTIONS. All rights reserved. | SEBI Registered Research Analyst | <a href="#disclaimer" style="color: var(--light-purple); text-decoration: none;">Disclaimer</a></p>
+            <p>&copy; 2025 ACCRUVISTA PRO SOLUTIONS. All rights reserved. <a href="#disclaimer" style="color: var(--light-purple); text-decoration: none;">Disclaimer</a></p>
         </div>
     </footer>
 
@@ -1060,6 +1203,77 @@
                 }, 600);
             }, visibleMs);
         });
+
+        // Hero slider: auto-advance and pause-on-hover
+        (function(){
+            const slides = document.querySelectorAll('.slide');
+            if (!slides || slides.length === 0) return;
+            let idx = 0;
+            const slideInterval = 5000;
+            function showSlide(i){
+                slides.forEach((s, j) => s.classList.toggle('active', j === i));
+            }
+            let timer = setInterval(() => {
+                idx = (idx + 1) % slides.length;
+                showSlide(idx);
+            }, slideInterval);
+
+                // Do not pause slider on hover — continuous animation
+        })();
+
+        // Intercept nav/header link clicks to show splash animation before navigation
+        (function(){
+            function ensureSplash() {
+                let splash = document.getElementById('splash');
+                if (!splash) {
+                    splash = document.createElement('div');
+                    splash.id = 'splash';
+                    splash.setAttribute('aria-hidden','true');
+                    splash.innerHTML = `
+                        <div class="splash-inner">
+                            <div class="splash-logo"><img src="logo.png" alt="ACCRUVISTA logo"></div>
+                            <div class="splash-company">ACCRUVISTA PRO SOLUTIONS</div>
+                            <div class="splash-text">Trusted Research · Stock Tips · Insights</div>
+                        </div>`;
+                    document.body.appendChild(splash);
+                } else {
+                    // make visible if it was hidden
+                    splash.classList.remove('hidden');
+                }
+                return splash;
+            }
+
+            function showSplashThenNavigate(targetUrl) {
+                const splash = ensureSplash();
+                // Give the animation time to play before navigating
+                const visibleMs = 1800;
+                // Clear previously scheduled navigation (if any) by using a scoped timer
+                setTimeout(() => {
+                    window.location.href = targetUrl;
+                }, visibleMs);
+            }
+
+            // Attach to header / nav / footer links but ignore anchors, mailto and tel links
+            const linkSelector = '.navbar-content a, .nav-links a, footer a, .top-bar a';
+            document.querySelectorAll(linkSelector).forEach(a => {
+                const href = a.getAttribute('href');
+                if (!href) return;
+                const lowered = href.toLowerCase();
+                // Skip fragment links and protocols we don't want to intercept
+                if (lowered.startsWith('#') || lowered.startsWith('mailto:') || lowered.startsWith('tel:') || lowered === 'javascript:void(0)') return;
+                // Allow external or blank-target links to behave normally
+                if (a.target === '_blank' || a.hostname && a.hostname !== location.hostname) return;
+
+                a.addEventListener('click', function(e){
+                    // If it's an in-page smooth scroll anchor handled elsewhere, let that run
+                    if (href.startsWith('#')) return;
+                    e.preventDefault();
+                    // Use the resolved absolute URL where possible
+                    const target = a.href || href;
+                    showSplashThenNavigate(target);
+                });
+            });
+        })();
     </script>
 </body>
 </html>

@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Career — ACCRUVISTA</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    body{font-family:'Poppins',system-ui,Arial;margin:0;color:#222;background:#fff}
+    .site-header{background:#2D2670;color:#fff;padding:16px}
+    .container{max-width:1100px;margin:28px auto;padding:0 18px}
+    h1{color:#2D2670}
+    .post{padding:18px;border-bottom:1px solid #eee}
+    .post h2{margin:0 0 8px}
+    .post p{margin:0;color:#444}
+    a.read{display:inline-block;margin-top:10px;color:#7B68EE;text-decoration:none}
+    footer{margin:60px 0 20px;color:#666;text-align:center}
+  </style>
+</head>
+<body>
+  <header class="site-header"><div class="container"><a class="logo" href="index.html">ACCRUVISTA</a></div></header>
+  <main class="container">
+    <h1>Career</h1>
+
+    <article class="post">
+      <h2>Open Positions</h2>
+      <p>We are hiring analysts and support staff. Send your resume to <a href="mailto:hr@accruvista.com">hr@accruvista.com</a>.</p>
+      <a class="read" href="#">Apply →</a>
+    </article>
+
+    <article class="post">
+      <h2>Internships</h2>
+      <p>Short-term internships for students interested in market research and analysis. (Excerpt)</p>
+      <a class="read" href="#">Apply →</a>
+    </article>
+
+    <p style="margin-top:20px"><a href="index.html">← Back to Home</a></p>
+  </main>
+  <footer><div class="container"><p>&copy; 2025 ACCRUVISTA PRO SOLUTIONS</p></div></footer>
+  <script>
+  (function(){
+    const css = `#splash{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#3b2a75 0%, #7B68EE 100%);z-index:9999;transition:opacity .45s ease,visibility .45s ease}#splash.hidden{opacity:0;visibility:hidden}#splash .splash-inner{text-align:center;color:#fff}#splash .splash-logo img{width:160px;height:auto;display:block;margin:0 auto;border-radius:12px}#splash .splash-company{font-size:32px;font-weight:800;margin-top:12px;letter-spacing:2px;animation:splash-fade 1600ms ease both}#splash .splash-text{margin-top:8px;animation:splash-slide 1600ms ease both}@keyframes splash-fade{0%{transform:translateY(12px) scale(.96);opacity:0}60%{transform:translateY(-6px) scale(1.02);opacity:1}100%{transform:translateY(0) scale(1);opacity:1}}@keyframes splash-slide{0%{transform:translateY(8px);opacity:0}100%{transform:translateY(0);opacity:1}}`;
+    const style = document.createElement('style'); style.textContent = css; document.head.appendChild(style);
+    const splash = document.createElement('div'); splash.id = 'splash'; splash.innerHTML = '<div class="splash-inner"><div class="splash-logo"><img src="logo.png" alt="ACCRUVISTA logo"></div><div class="splash-company">ACCRUVISTA PRO SOLUTIONS</div><div class="splash-text">Trusted Research · Stock Tips · Insights</div></div>';
+    document.body.appendChild(splash);
+    setTimeout(()=>{ splash.classList.add('hidden'); setTimeout(()=>{ if (splash && splash.parentNode) splash.parentNode.removeChild(splash); },600); }, 1400);
+  })();
+  </script>
+  <script>
+  // Intercept header/nav clicks to show splash before navigating
+  (function(){
+    function ensureSplash(){
+      let splash = document.getElementById('splash');
+      if (!splash){
+        splash = document.createElement('div');
+        splash.id = 'splash';
+        splash.innerHTML = '<div class="splash-inner"><div class="splash-logo"><img src="logo.png" alt="ACCRUVISTA logo"></div><div class="splash-company">ACCRUVISTA PRO SOLUTIONS</div><div class="splash-text">Trusted Research · Stock Tips · Insights</div></div>';
+        document.body.appendChild(splash);
+      } else {
+        splash.classList.remove('hidden');
+      }
+      return splash;
+    }
+
+    function showSplashThenNavigate(url){
+      ensureSplash();
+      const visibleMs = 1400;
+      setTimeout(()=>{ window.location.href = url; }, visibleMs);
+    }
+
+    document.querySelectorAll('a').forEach(a => {
+      const href = a.getAttribute('href');
+      if (!href) return;
+      const lowered = href.toLowerCase();
+      if (lowered.startsWith('#') || lowered.startsWith('mailto:') || lowered.startsWith('tel:') || lowered === 'javascript:void(0)') return;
+      if (a.target === '_blank' || (a.hostname && a.hostname !== location.hostname)) return;
+      a.addEventListener('click', function(e){
+        if (href.startsWith('#')) return;
+        e.preventDefault();
+        const target = a.href || href;
+        showSplashThenNavigate(target);
+      });
+    });
+  })();
+  </script>
+  </body>
+  </html>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Career - ACCRUVISTA</title>
+</head>
+<body>
+  <nav style="background:#fff;padding:15px 20px;border-bottom:1px solid #e0e0e0;">
+    <a href="index.html" style="display:flex;align-items:center;gap:12px;text-decoration:none;color:#2D2670;font-weight:700;"><img src="logo.png" alt="logo" style="width:40px;height:40px;object-fit:contain">ACCRUVISTA</a>
+  </nav>
+  <main style="max-width:1000px;margin:40px auto;padding:0 20px;">
+    <h1>Career</h1>
+    <p>We welcome talented professionals. Please send your resume to <a href="mailto:info@accruvista.com">info@accruvista.com</a>.</p>
+    <p><a href="index.html">← Back to Home</a></p>
+  </main>
+  <footer style="background:#2D2670;color:#fff;padding:40px 20px;text-align:center;margin-top:60px;">
+    <p>&copy; 2025 ACCRUVISTA PRO SOLUTIONS</p>
+  </footer>
+</body>
+</html>

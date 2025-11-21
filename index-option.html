@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>INDEX OPTION — ACCRUVISTA</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    body{font-family:'Poppins',system-ui,Arial;margin:0;color:#222;background:#fff}
+    .site-header{background:#2D2670;color:#fff;padding:16px}
+    .container{max-width:1100px;margin:28px auto;padding:0 18px}
+    .hero{display:flex;gap:20px;align-items:center}
+    .hero img{width:320px;height:200px;object-fit:cover;border-radius:8px}
+    h1{margin:0 0 8px 0;color:#2D2670}
+    p{color:#444;line-height:1.6}
+    .cta{display:inline-block;margin-top:14px;padding:10px 18px;background:#7B68EE;color:#fff;border-radius:6px;text-decoration:none}
+    ul{margin-left:18px}
+    footer{margin:60px 0 20px;color:#666;text-align:center}
+  </style>
+</head>
+<body>
+  <header class="site-header"><div class="container"><a class="logo" href="index.html">ACCRUVISTA</a></div></header>
+  <main class="container">
+    <a href="index.html">← Back to Home</a>
+    <h1> INDEX OPTION</h1>
+    <img src="s5.jpg" alt="Index option cover" style="width:100%;max-width:720px;height:auto;border-radius:8px;margin:12px 0">
+
+    <p>A Premium Services designed for traders who wants to trade in the Index Options to capture momentum.</p>
+    <p><strong>What:</strong> Recommendation in Index Options with occasional one day holding.</p>
+    <p><strong>Whom:</strong> Intraday Trader in Index Options.</p>
+    <p><strong>Ideal for:</strong> Ideal for clients looking who wants to trade in high volatility of Index Options.</p>
+    <p><strong>Product Description:</strong> Designed for active traders in Index Options traders in mind, it provides you 35–40 recommendations in a month.</p>
+    <p><strong>Risk Suitability:</strong> Moderately High</p>
+    <p><strong>Daily:</strong> 1–3 Index Options Recommendations</p>
+    <p><strong>Minimum Investment:</strong> INR 1,00,000 &amp; Above</p>
+    <p><strong>Recommendation Frequency:</strong> Minimum 35–40 Monthly</p>
+    <p><strong>Follow-Up:</strong> Yes</p>
+    <p><strong>Disclaimer:</strong> Investment in securities market are subject to market risks. Read all the related documents carefully before investing.</p>
+
+    <p style="margin-top:20px;"><a class="cta" href="index.html">Back to Home</a></p>
+  </main>
+  <footer><div class="container"><p>&copy; 2025 ACCRUVISTA PRO SOLUTIONS</p></div></footer>
+  <script>
+  (function(){
+    const css = `#splash{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#3b2a75 0%, #7B68EE 100%);z-index:9999;transition:opacity .45s ease,visibility .45s ease}#splash.hidden{opacity:0;visibility:hidden}#splash .splash-inner{text-align:center;color:#fff}#splash .splash-logo img{width:160px;height:auto;display:block;margin:0 auto;border-radius:12px}#splash .splash-company{font-size:32px;font-weight:800;margin-top:12px;letter-spacing:2px;animation:splash-fade 1600ms ease both}#splash .splash-text{margin-top:8px;animation:splash-slide 1600ms ease both}@keyframes splash-fade{0%{transform:translateY(12px) scale(.96);opacity:0}60%{transform:translateY(-6px) scale(1.02);opacity:1}100%{transform:translateY(0) scale(1);opacity:1}}@keyframes splash-slide{0%{transform:translateY(8px);opacity:0}100%{transform:translateY(0);opacity:1}}`;
+    const style = document.createElement('style'); style.textContent = css; document.head.appendChild(style);
+    const splash = document.createElement('div'); splash.id = 'splash'; splash.innerHTML = '<div class="splash-inner"><div class="splash-logo"><img src="logo.png" alt="ACCRUVISTA logo"></div><div class="splash-company">ACCRUVISTA PRO SOLUTIONS</div><div class="splash-text">Trusted Research · Stock Tips · Insights</div></div>';
+    document.body.appendChild(splash);
+    setTimeout(()=>{ splash.classList.add('hidden'); setTimeout(()=>{ if (splash && splash.parentNode) splash.parentNode.removeChild(splash); },600); }, 1400);
+  })();
+  </script>
+  <script>
+  // Intercept header/nav clicks to show splash before navigating
+  (function(){
+    function ensureSplash(){
+      let splash = document.getElementById('splash');
+      if (!splash){
+        splash = document.createElement('div');
+        splash.id = 'splash';
+        splash.innerHTML = '<div class="splash-inner"><div class="splash-logo"><img src="logo.png" alt="ACCRUVISTA logo"></div><div class="splash-company">ACCRUVISTA PRO SOLUTIONS</div><div class="splash-text">Trusted Research · Stock Tips · Insights</div></div>';
+        document.body.appendChild(splash);
+      } else {
+        splash.classList.remove('hidden');
+      }
+      return splash;
+    }
+
+    function showSplashThenNavigate(url){
+      ensureSplash();
+      const visibleMs = 1400;
+      setTimeout(()=>{ window.location.href = url; }, visibleMs);
+    }
+
+    document.querySelectorAll('a').forEach(a => {
+      const href = a.getAttribute('href');
+      if (!href) return;
+      const lowered = href.toLowerCase();
+      if (lowered.startsWith('#') || lowered.startsWith('mailto:') || lowered.startsWith('tel:') || lowered === 'javascript:void(0)') return;
+      if (a.target === '_blank' || (a.hostname && a.hostname !== location.hostname)) return;
+      a.addEventListener('click', function(e){
+        if (href.startsWith('#')) return;
+        e.preventDefault();
+        const target = a.href || href;
+        showSplashThenNavigate(target);
+      });
+    });
+  })();
+  </script>
+</body>
+</html>

@@ -791,6 +791,35 @@
                 grid-template-columns: 1fr;
             }
         }
+
+        /* Enquire modal */
+        .modal-backdrop {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.45);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 20000;
+            padding: 20px;
+        }
+        .modal-backdrop.open { display: flex; }
+        .modal {
+            background: var(--white);
+            width: 100%;
+            max-width: 520px;
+            border-radius: 10px;
+            padding: 20px 22px;
+            box-shadow: 0 12px 40px rgba(0,0,0,0.25);
+        }
+        .modal h3 { margin-bottom:10px; color:var(--primary-dark); }
+        .modal .field { margin-bottom:10px; }
+        .modal label { display:block; font-size:13px; margin-bottom:6px; color:var(--text-dark); }
+        .modal input[type="text"], .modal input[type="email"] { width:100%; padding:10px 12px; border:1px solid var(--border-color); border-radius:6px; }
+        .modal .actions { display:flex; gap:10px; justify-content:flex-end; margin-top:12px; }
+        .modal .btn { padding:10px 16px; border-radius:6px; cursor:pointer; border:none; }
+        .modal .btn.secondary { background:transparent; border:1px solid var(--border-color); }
+        .modal .btn.primary { background:var(--primary-purple); color:var(--white); }
     </style>
 </head>
 <body>
@@ -871,7 +900,7 @@
                 <h1>Stock Tips with our experienced Research Team</h1>
                 <p>Cash and F&amp;O traded in NSE and commodities bullion.</p>
                 <div class="hero-buttons">
-                    <a href="#contact" class="btn-primary">Get Started</a>
+                    <button id="enquireBtn" class="btn-primary">Enquire Now</button>
                     <a href="#services" class="btn-secondary">Explore Services</a>
                 </div>
             </div>
@@ -1120,6 +1149,31 @@
         </div>
     </footer>
 
+    <!-- Enquire Modal -->
+    <div class="modal-backdrop" id="enquireModal" aria-hidden="true">
+        <div class="modal" role="dialog" aria-modal="true" aria-labelledby="enquireTitle">
+            <h3 id="enquireTitle">Enquire Now</h3>
+            <form id="enquireForm">
+                <div class="field">
+                    <label for="enqName">Full name</label>
+                    <input id="enqName" name="name" type="text" required>
+                </div>
+                <div class="field">
+                    <label for="enqPhone">Mobile number</label>
+                    <input id="enqPhone" name="phone" type="text" required>
+                </div>
+                <div class="field">
+                    <label for="enqEmail">Email address</label>
+                    <input id="enqEmail" name="email" type="email" required>
+                </div>
+                <div class="actions">
+                    <button type="button" class="btn secondary" id="enqCancel">Cancel</button>
+                    <button type="submit" class="btn primary">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
     <script>
         // Mobile Menu Toggle
         const menuToggle = document.getElementById('menuToggle');
@@ -1256,6 +1310,73 @@
                     showSplashThenNavigate(target);
                 });
             });
+        })();
+
+        // Enquire modal behavior: open modal, validate, submit via mailto draft
+        (function(){
+            const enquireBtn = document.getElementById('enquireBtn');
+            const modal = document.getElementById('enquireModal');
+            const cancel = document.getElementById('enqCancel');
+            const form = document.getElementById('enquireForm');
+
+            function openModal(){
+                if(!modal) return;
+                modal.classList.add('open');
+                modal.setAttribute('aria-hidden','false');
+                const first = modal.querySelector('input');
+                if(first) first.focus();
+            }
+            function closeModal(){
+                if(!modal) return;
+                modal.classList.remove('open');
+                modal.setAttribute('aria-hidden','true');
+            }
+
+            if(enquireBtn) enquireBtn.addEventListener('click', openModal);
+            if(cancel) cancel.addEventListener('click', closeModal);
+
+            // Close when clicking backdrop (but not when clicking the modal itself)
+            if(modal){
+                modal.addEventListener('click', (e)=>{
+                    if(e.target === modal) closeModal();
+                });
+            }
+
+            if(form){
+                form.addEventListener('submit', (e)=>{
+                    e.preventDefault();
+                    const name = document.getElementById('enqName').value.trim();
+                    const phone = document.getElementById('enqPhone').value.trim();
+                    const email = document.getElementById('enqEmail').value.trim();
+
+                    if(!name || !phone || !email){
+                        alert('Please fill all fields.');
+                        return;
+                    }
+
+                    // Basic email validation
+                    const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                    if(!emailRe.test(email)){
+                        alert('Please enter a valid email address.');
+                        return;
+                    }
+
+                    // Construct mailto link to open user's mail client with prefilled body
+                    const to = 'info@accruvista.com';
+                    const subject = encodeURIComponent('Website Enquiry');
+                    const bodyLines = [];
+                    bodyLines.push('Name: ' + name);
+                    bodyLines.push('Phone: ' + phone);
+                    bodyLines.push('Email: ' + email);
+                    bodyLines.push('Source: Website Enquire Now form');
+                    const body = encodeURIComponent(bodyLines.join('\n'));
+                    const mailto = `mailto:${to}?subject=${subject}&body=${body}`;
+
+                    // Open mailto (this will open user's mail client). Then close modal.
+                    window.location.href = mailto;
+                    closeModal();
+                });
+            }
         })();
     </script>
 </body>

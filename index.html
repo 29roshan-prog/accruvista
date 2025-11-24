@@ -820,6 +820,24 @@
         .modal .btn { padding:10px 16px; border-radius:6px; cursor:pointer; border:none; }
         .modal .btn.secondary { background:transparent; border:1px solid var(--border-color); }
         .modal .btn.primary { background:var(--primary-purple); color:var(--white); }
+        /* Responsive tweaks for modal */
+        @media (max-width: 600px) {
+            .modal { max-width: 94%; padding: 16px; }
+            .modal h3 { font-size: 18px; }
+            .modal label { font-size: 13px; }
+            .modal input[type="text"], .modal input[type="email"] { padding: 12px; font-size: 15px; }
+            .modal .actions { flex-direction: column-reverse; gap: 8px; }
+            .modal .btn { width: 100%; padding: 12px; }
+            .modal .btn.secondary { order: 2; }
+            .modal .btn.primary { order: 1; }
+        }
+        @media (min-width: 601px) and (max-width: 980px) {
+            .modal { max-width: 520px; padding: 18px; }
+            .modal h3 { font-size: 20px; }
+            .modal input[type="text"], .modal input[type="email"] { font-size: 14px; }
+            .modal .actions { justify-content: flex-end; }
+            .modal .btn { min-width: 110px; }
+        }
     </style>
 </head>
 <body>
@@ -900,7 +918,7 @@
                 <h1>Stock Tips with our experienced Research Team</h1>
                 <p>Cash and F&amp;O traded in NSE and commodities bullion.</p>
                 <div class="hero-buttons">
-                    <button id="enquireBtn" class="btn-primary">Enquire Now</button>
+                    <button id="enquireBtn" class="btn-primary open-enquire">Enquire Now</button>
                     <a href="#services" class="btn-secondary">Explore Services</a>
                 </div>
             </div>
@@ -982,12 +1000,12 @@
                 <div class="benefit-card">
                     <h3>The recommendations for Stocks</h3>
                     <p>Cash and F&amp;O traded in NSE and commodities bullion. Our recommendations focus on high-probability setups and risk management.</p>
-                    <p style="margin-top:12px;"><a href="#contact" class="cta-button">Make an Appointment</a></p>
+                    
                 </div>
                 <div class="benefit-card">
                     <h3>The recommendation on technical basis</h3>
                     <p>By keeping eyes on fundamentals with appropriate risk &amp; reward ratio, we combine technical and fundamental signals to build actionable calls.</p>
-                    <p style="margin-top:12px;"><a href="#contact" class="cta-button">Make an Appointment</a></p>
+                    
                 </div>
             </div>
         </div>
@@ -1001,7 +1019,7 @@
                 <p style="margin:0; opacity:0.95;">Enquire now for personalised research and tailored stock tips.</p>
             </div>
             <div style="text-align:right; min-width:200px;">
-                <a href="#contact" class="btn-primary" style="display:inline-block;">Enquire Now</a>
+                <button class="btn-primary open-enquire" style="display:inline-block;">Enquire Now</button>
             </div>
         </div>
     </section>
@@ -1314,7 +1332,7 @@
 
         // Enquire modal behavior: open modal, validate, submit via mailto draft
         (function(){
-            const enquireBtn = document.getElementById('enquireBtn');
+            const enquireTriggers = document.querySelectorAll('.open-enquire');
             const modal = document.getElementById('enquireModal');
             const cancel = document.getElementById('enqCancel');
             const form = document.getElementById('enquireForm');
@@ -1332,7 +1350,9 @@
                 modal.setAttribute('aria-hidden','true');
             }
 
-            if(enquireBtn) enquireBtn.addEventListener('click', openModal);
+            if(enquireTriggers && enquireTriggers.length){
+                enquireTriggers.forEach(t => t.addEventListener('click', openModal));
+            }
             if(cancel) cancel.addEventListener('click', closeModal);
 
             // Close when clicking backdrop (but not when clicking the modal itself)
